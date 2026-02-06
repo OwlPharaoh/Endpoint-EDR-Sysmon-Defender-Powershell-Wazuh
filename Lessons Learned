@@ -1,0 +1,54 @@
+# Lessons Learned – Endpoint EDR with Wazuh
+
+This project surfaced multiple real-world challenges commonly encountered in SOC and detection engineering roles.
+
+## 1. Built-in Rules Fire Before Custom Rules
+Wazuh’s native Sysmon rules (e.g., rule ID 62123) often triggered before custom detections. This is expected behavior and reflects production environments.
+
+**Lesson:**  
+Custom rules should extend or correlate existing detections rather than replace them.
+
+## 2. Rule Chaining vs Direct Matching
+Using `<if_sid>` only works when chaining from the *actual* parent rule that fired. Guessing SIDs leads to silent failures.
+
+**Lesson:**  
+Always inspect `alerts.json` to identify the true parent rule ID.
+
+## 3. Sysmon vs Defender Telemetry
+Sysmon does not log events that are blocked before execution. Windows Defender may prevent a process from starting entirely.
+
+**Lesson:**  
+Endpoint detection must ingest **both** behavior telemetry (Sysmon) and prevention telemetry (Defender).
+
+## 4. Defender Blocking Is a Signal, Not a Failure
+LOLBIN executions (mshta, certutil, rundll32) were blocked by Defender, preventing Sysmon process creation events.
+
+**Lesson:**  
+Blocked execution attempts are high-confidence indicators and should be alerted on.
+
+## 5. PowerShell Detection Requires Explicit Logging
+PowerShell Script Block Logging had to be enabled to detect exploitation techniques.
+
+**Lesson:**  
+Detection quality depends on correct host-side logging configuration.
+
+## 6. Correlation Reduces Noise
+By correlating Sysmon detections with Defender blocks, alerts became:
+- Higher confidence
+- More actionable
+- Less noisy
+
+**Lesson:**  
+Correlation is more valuable than standalone detections.
+
+## 7. Field Names and Regex Engines Matter
+Incorrect field casing or missing `type="pcre2"` caused silent rule failures.
+
+**Lesson:**  
+Always verify field names against real event JSON.
+
+## 8. Enterprise Detection Is Iterative
+Many “failures” were actually correct system behavior (rule precedence, prevention blocking).
+
+**Lesson:**  
+Detection engineering is about understanding systems, not forcing alerts to fire.
