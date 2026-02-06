@@ -1,4 +1,4 @@
-# Lessons Learned – Endpoint EDR with Wazuh
+# Lessons Learned – Endpoint EDR with Wazuh 
 
 This project surfaced multiple real-world challenges commonly encountered in SOC and detection engineering roles.
 
