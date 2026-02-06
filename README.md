@@ -14,7 +14,7 @@ Windows 11 & Windows Server 2025 (Victims)
   - Sysmon (Olaf Hartong config)
   - Windows Defender
   - Wazuh Agent
-        |
+    |
 Wazuh Manager (v4.14)
   - Detection rules
   - Correlation logic
@@ -49,6 +49,7 @@ A high-severity alert is generated only when:
 - Sysmon detects suspicious LOLBIN execution **AND**
 - Windows Defender blocks the same behavior
 
+
 This reduces false positives and reflects real SOC alerting strategy.
 
 ## References
@@ -60,33 +61,20 @@ This reduces false positives and reflects real SOC alerting strategy.
 - Defender block events
 - Correlated alert (Sysmon + Defender)/ Events UI
 
+![24 log windows defender logs](https://github.com/user-attachments/assets/429fa92c-02b2-402d-8bf1-ac293025dbf4)
+
+![24 rule to detect mshta blocked by windows defender](https://github.com/user-attachments/assets/5065f227-fd82-4de9-94f6-1a195d1e4374)
 
 
----
+![25 simulating lolbin attack on windows and dtetecting it in wazuh](https://github.com/user-attachments/assets/3e162888-a785-4c27-8a38-3c5d21383785)
+
+![26 created and validated correlation rules for mshta exe](https://github.com/user-attachments/assets/f570bfb1-22dd-4111-8318-dc74d270c265)
 
 
----
-
-## 📂 Repository Structure
-project-02-endpoint-edr/
-├─ sysmon/
-│ └─ sysmonconfig.xml
-├─ wazuh/
-│ ├─ sysmon_rules.xml
-│ ├─ defender_rules.xml
-│ └─ correlation_rules.xml
-├─ docs/
-│ ├─ attack-simulation.md
-│ ├─ lessons-learned.md
-│ └─ screenshots/
-└─ README.md
-
-
-
-
-
+![27 confirmed correlation rules on wazuh](https://github.com/user-attachments/assets/f435e13b-cfbc-43e4-97bf-d5bbc6da6ffd)
 
 ---
+
 
 
 
