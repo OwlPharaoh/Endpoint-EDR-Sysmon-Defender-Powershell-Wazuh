@@ -78,7 +78,7 @@ This reduces false positives and reflects real SOC alerting strategy.
 
 
 
-## 🚀 Next Project
+## Next Project
 
 **Project 03 – Active Directory Attacks & Detection**
 
